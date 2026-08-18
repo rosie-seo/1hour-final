@@ -5,7 +5,6 @@ import Image from "next/image"
 import Link from "next/link"
 import {
   Bell,
-  ClipboardList,
   FileText,
   List,
   Maximize,
@@ -19,7 +18,6 @@ import {
 
 import { LessonSidebar } from "@/components/classroom/lesson-sidebar"
 import { LessonToc } from "@/components/classroom/lesson-toc"
-import { StudyProgress } from "@/components/classroom/study-progress"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import type { Episode, StudyStep } from "@/lib/study-data"
@@ -27,7 +25,6 @@ import type { Episode, StudyStep } from "@/lib/study-data"
 /** 넓은화면에서 오른쪽 레일에 세로로 놓이는 항목들 */
 const RAIL = [
   { key: "toc", label: "강의목차", icon: List },
-  { key: "progress", label: "학습 기록", icon: ClipboardList },
   { key: "materials", label: "강의자료", icon: FileText },
   { key: "notice", label: "공지사항", icon: Bell },
   { key: "tools", label: "학습도구", icon: Wrench },
@@ -145,9 +142,6 @@ export function LessonStage({
         <main className="flex min-w-0 flex-1 flex-col">
           {video}
           {controls}
-          <div className="p-4 sm:p-6">
-            <StudyProgress episode={episode} />
-          </div>
         </main>
 
         <LessonSidebar
@@ -219,12 +213,7 @@ export function LessonStage({
                 activeStepId={active.id}
               />
             )}
-            {panel === "progress" && (
-              <div className="p-3">
-                <StudyProgress episode={episode} />
-              </div>
-            )}
-            {panel !== "toc" && panel !== "progress" && (
+            {panel !== "toc" && (
               <p className="px-4 py-16 text-center text-sm text-muted-foreground">
                 아직 등록된 내용이 없습니다.
               </p>

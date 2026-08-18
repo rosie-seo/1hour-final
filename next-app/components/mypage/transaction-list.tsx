@@ -188,7 +188,7 @@ function GroupCard({
               <Badge variant="outline">이용 종료</Badge>
             )}
             {group.status === "refunded" && (
-              <Badge variant="outline">환불 종료</Badge>
+              <Badge variant="outline">환불 완료</Badge>
             )}
           </div>
           <p className="mt-1 text-xs text-muted-foreground">

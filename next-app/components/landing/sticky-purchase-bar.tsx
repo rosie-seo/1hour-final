@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -59,11 +60,11 @@ export function StickyPurchaseBar() {
         </div>
         <Button
           size="lg"
-          render={<a href="#pricing" />}
+          render={<Link href={`/checkout/${featuredPlan.id}`} />}
           nativeButton={false}
           className="h-11 shrink-0 px-5 text-sm font-bold sm:px-8 sm:text-base"
         >
-          지금 결제하기
+          지금 수강 신청하기
         </Button>
       </div>
     </div>

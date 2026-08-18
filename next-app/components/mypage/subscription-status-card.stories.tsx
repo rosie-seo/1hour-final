@@ -31,7 +31,7 @@ export const Active: Story = {
 
 /** 7일 내 환불로 종료 — 썸네일 흑백, 환불 금액과 환불일 표기 */
 export const Refunded: Story = {
-  name: "환불 종료",
+  name: "환불 완료",
   args: { group: refunded },
 }
 

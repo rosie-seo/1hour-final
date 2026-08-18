@@ -4,7 +4,6 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { UserMenu } from "@/components/landing/user-menu"
 
@@ -38,20 +37,7 @@ export function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            className="hidden sm:inline-flex"
-            render={
-              <a href="/storybook" target="_blank" rel="noopener noreferrer" />
-            }
-            nativeButton={false}
-          >
-            디자이너 응원하기
-          </Button>
           <UserMenu />
-          <Button render={<Link href="/#pricing" />} nativeButton={false}>
-            신청하기
-          </Button>
         </div>
       </div>
     </header>

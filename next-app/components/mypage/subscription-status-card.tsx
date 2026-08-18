@@ -1,20 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
-  BarChart3,
   CalendarDays,
   ChevronRight,
   CreditCard,
   Info,
-  Mic,
-  Users,
 } from "lucide-react"
 
 import { SubscriptionPaymentMethod } from "@/components/mypage/change-payment-method"
+import { ManagePlanDialog } from "@/components/mypage/manage-plan-dialog"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { planIncludes } from "@/lib/course-data"
 import {
   benefitRemaining,
   benefitUsed,
@@ -33,13 +29,6 @@ function formatKoreanDate(value?: string) {
   return `${y}년 ${Number(m)}월 ${Number(d)}일`
 }
 
-const FEATURE_ICON = {
-  calendar: CalendarDays,
-  mic: Mic,
-  chart: BarChart3,
-  users: Users,
-} as const
-
 const STATUS_BADGE: Record<
   Subscription["status"],
   { label: string; variant: "default" | "outline" | "secondary" }
@@ -47,7 +36,7 @@ const STATUS_BADGE: Record<
   active: { label: "이용중", variant: "default" },
   canceled: { label: "해지 예정", variant: "outline" },
   expired: { label: "이용 종료", variant: "secondary" },
-  refunded: { label: "환불 종료", variant: "secondary" },
+  refunded: { label: "환불 완료", variant: "secondary" },
 }
 
 /**
@@ -106,7 +95,7 @@ export function SubscriptionStatusCard({ group }: { group: Subscription }) {
         )}
       </div>
 
-      <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.1fr)]">
+      <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         {/* 1. 내가 쓰고 있는(썼던) 플랜 */}
         <div className="overflow-hidden rounded-xl border border-border">
           {/* 썸네일은 카드 상단을 꽉 채운다 */}
@@ -130,19 +119,7 @@ export function SubscriptionStatusCard({ group }: { group: Subscription }) {
             </p>
 
             {live ? (
-              <>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="mt-4 rounded-full"
-                >
-                  플랜 관리
-                </Button>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  해지하려면 <span className="font-semibold">플랜 관리</span>로
-                  이동
-                </p>
-              </>
+              <ManagePlanDialog sub={group} />
             ) : (
               <p className="mt-3 text-xs text-muted-foreground">
                 {group.endedReason} · {group.endsAt} 종료
@@ -151,47 +128,7 @@ export function SubscriptionStatusCard({ group }: { group: Subscription }) {
           </div>
         </div>
 
-        {/* 2. 플랜에 포함된 것 */}
-        <div>
-          <h3 className="text-sm font-bold">
-            {live ? "내 플랜에 포함" : "이 플랜에 포함되었던 것"}
-          </h3>
-          <ul className="mt-4 flex flex-col gap-3">
-            {planIncludes.items.map((item) => {
-              const Icon =
-                FEATURE_ICON[item.icon as keyof typeof FEATURE_ICON] ??
-                CalendarDays
-              return (
-                <li key={item.label} className="flex items-center gap-2.5">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-muted">
-                    <Icon
-                      className="size-3.5 text-muted-foreground"
-                      aria-hidden
-                    />
-                  </span>
-                  <span
-                    className={cn("text-sm", !live && "text-muted-foreground")}
-                  >
-                    {item.label}
-                  </span>
-                </li>
-              )
-            })}
-          </ul>
-          {live && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-6 rounded-full"
-              render={<Link href="/mypage/classroom" />}
-              nativeButton={false}
-            >
-              내 강의장 이동
-            </Button>
-          )}
-        </div>
-
-        {/* 3. 언제 얼마가 나갔나 */}
+        {/* 2. 언제 얼마가 나갔나 */}
         <div>
           <h3 className="text-sm font-bold">결제 방법 및 청구 내역</h3>
 

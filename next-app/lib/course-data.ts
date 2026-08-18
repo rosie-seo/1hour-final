@@ -8,7 +8,7 @@ export const course = {
   subtitle: "매일 30분으로 끝내는 국내 어학연수!",
   instructor: "캘리쌤 · 10년차 영어 스피킹 코치 / 전 어학원 대표강사",
   stats: [
-    { label: "커리큘럼", value: "매달 4개 콘텐츠 · 20일 루틴" },
+    { label: "커리큘럼", value: "4주 · 주차별 콘텐츠 5개 · 20일 루틴" },
     { label: "난이도", value: "왕초보 ~ 중급" },
     { label: "수강 방식", value: "스마트폰으로 언제 어디서든" },
   ],
@@ -71,18 +71,6 @@ export const backofficeImages: Record<
       alt: "의지만으로 어려워요, 캘리쌤이 매일 노크해드릴게요",
       width: 900,
       height: 2719,
-    },
-    {
-      src: "/backoffice/not-recommended.png",
-      alt: "이런 분께는 추천하지 않아요",
-      width: 900,
-      height: 1715,
-    },
-    {
-      src: "/backoffice/community.png",
-      alt: "함께 가면 멀리 갈 수 있습니다",
-      width: 900,
-      height: 1481,
     },
   ],
 }
@@ -230,16 +218,20 @@ export const starReviews = [
 
 export const pricingPlans = [
   {
+    id: "monthly",
     name: "1개월 이용권",
     note: "매달 결제",
+    recurring: "매달",
     discountRate: 30,
     regularPrice: 99000,
     price: 69000,
     priceLabel: "월 69,000원",
   },
   {
+    id: "yearly",
     name: "12개월 이용권",
     note: "12개월마다 결제",
+    recurring: "매년",
     discountRate: 60,
     regularPrice: 1188000,
     price: 468000,
@@ -265,16 +257,6 @@ export const wishlistCatalog = [
     discountRate: pricingPlans[0].discountRate,
   },
 ]
-
-/** 구독 관리 화면의 "내 플랜에 포함" 목록 */
-export const planIncludes = {
-  items: [
-    { icon: "calendar", label: "매달 4개 콘텐츠 · 20일 루틴" },
-    { icon: "mic", label: "AI 발음·억양 피드백" },
-    { icon: "chart", label: "학습 리포트 제공" },
-    { icon: "users", label: "네이버 카페 커뮤니티" },
-  ],
-}
 
 export const guarantee = {
   title: "7일 내 취소 시 무조건 100% 환불 보장",
@@ -308,6 +290,27 @@ export const referral = {
   title: "챌린지 추천 시 혜택",
   description:
     "친구를 초대하면 친구는 12만원 할인, 나는 30일 연장 혜택(10만원 상당, 최대 10회)을 받아요.",
+  friendDiscount: 120000,
+  rewardLabel: "30일 연장",
+  rewardValueLabel: "10만원 상당",
+  maxRewardCount: 10,
+  steps: [
+    {
+      label: "초대 링크 발급",
+      detail: "챌린지 구매 후 마이페이지에서 나만의 초대 링크를 받아요.",
+    },
+    {
+      label: "친구 초대",
+      detail: "카카오톡, 문자 등으로 초대 링크를 친구에게 공유해요.",
+    },
+    {
+      label: "혜택 지급",
+      detail:
+        "초대한 친구가 링크로 구매하면 친구는 12만원 할인, 나는 30일 연장(10만원 상당) 혜택을 받아요.",
+    },
+  ],
+  caution:
+    "우수자 장학금 등 다른 할인 이벤트와 중복 적용이 불가할 수 있으며, 혜택은 최대 10회까지 누적돼요.",
 }
 
 export const faqs = [
@@ -324,7 +327,7 @@ export const faqs = [
   {
     question: "커리큘럼은 어떻게 되나요?",
     answer:
-      "1개월 기준, 주말/휴일 등을 제외하고 총 20일 분량의 커리큘럼이 제공됩니다. 영상 1편당 5일 가량의 학습을 바탕으로, 한 편의 영상을 말할 수 있도록 학습하는 것을 목표로 합니다.",
+      "1개월 기준, 주말/휴일 등을 제외하고 총 20일 분량의 커리큘럼이 제공됩니다. 한 주에 5개의 콘텐츠가 공개되며, 콘텐츠마다 단어 · 문법 · 더빙 · 복습 퀴즈까지 학습해 영상을 직접 말할 수 있도록 하는 것을 목표로 합니다.",
   },
   {
     question: "챌린지는 언제부터 시작하나요?",
@@ -365,7 +368,7 @@ export const learningPolicy = {
     periodLabel: "총 학습기간:",
     periodItems: [
       "1개월 이용권은 결제일로부터 30일, 12개월 이용권은 결제일로부터 365일간 이용 가능합니다.",
-      "매달 4개 콘텐츠, 총 20일 분량의 커리큘럼이 순차 공개됩니다.",
+      "매달 4주, 주차별 콘텐츠 5개씩 총 20일 분량의 커리큘럼이 순차 공개됩니다.",
       "학습 시작일: 매월 주말/공휴일을 제외한 첫 번째 평일을 기준으로 새 커리큘럼이 공개됩니다.",
       "12개월 이용권은 회차별로 자동 갱신되며, 언제든 다음 결제 전 해지할 수 있습니다.",
       "일부 콘텐츠는 아직 모든 회차가 공개되지 않았습니다. 공개 일정은 상세페이지 하단에 안내되어 있습니다.",
@@ -408,19 +411,21 @@ export const myPageUser = {
   level: "왕초보",
   points: "0P",
   stats: [
-    { label: "찜한 강의", value: "1개" },
-    { label: "구독", value: "3개" },
+    { label: "찜한 강의", value: "1개", href: "/mypage/wishlist" },
+    { label: "구독", value: "3개", href: "/mypage/subscriptions" },
   ],
 }
 
 export const myPageNav = {
-  classroom: {
-    heading: "강의장",
+  home: {
+    heading: "학습",
+    items: [{ label: "학습 분석", href: "/mypage" }],
+  },
+  benefits: {
+    heading: "혜택",
     items: [
-      { label: "학습 분석", href: "/mypage" },
-      { label: "내 강의장", href: "/mypage/classroom" },
-      { label: "찜한 강의", href: "/mypage/wishlist" },
       { label: "장학금 현황", href: "/mypage/scholarship" },
+      { label: "찜한 강의", href: "/mypage/wishlist" },
     ],
   },
   purchase: {
@@ -439,49 +444,6 @@ export const myPageNav = {
 export const paymentHistory = allTransactions.filter(
   (tx) => tx.type === "payment"
 )
-
-export const myClassroom = [
-  {
-    id: "EPISODE 1",
-    slug: "ep-1",
-    title: "모닝 루틴 (Morning Routine)",
-    instructor: "캘리쌤 · 영어 스피킹 코치",
-    studiedAt: "2026.08.15 21:43",
-    purchasedAt: "2026.08.03 09:12",
-    completed: 4,
-    total: 5,
-  },
-  {
-    id: "EPISODE 2",
-    slug: "ep-2",
-    title: "장보기 (Grocery Shopping)",
-    instructor: "캘리쌤 · 영어 스피킹 코치",
-    studiedAt: "2026.08.03 09:20",
-    purchasedAt: "2026.08.03 09:12",
-    completed: 0,
-    total: 5,
-  },
-  {
-    id: "EPISODE 3",
-    slug: "ep-3",
-    title: "카페에서 주문하기 (Ordering Coffee)",
-    instructor: "캘리쌤 · 영어 스피킹 코치",
-    studiedAt: "2026.02.03 10:10",
-    purchasedAt: "2026.02.03 10:05",
-    completed: 0,
-    total: 5,
-  },
-  {
-    id: "EPISODE 4",
-    slug: "ep-4",
-    title: "여행 중 생기는 일 (Travel Diaries)",
-    instructor: "캘리쌤 · 영어 스피킹 코치",
-    studiedAt: "2026.01.03 10:50",
-    purchasedAt: "2026.01.03 10:41",
-    completed: 0,
-    total: 5,
-  },
-]
 
 export const myProfile = {
   basic: [

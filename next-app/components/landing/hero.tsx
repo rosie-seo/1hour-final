@@ -1,7 +1,7 @@
 import Image from "next/image"
+import Link from "next/link"
 import {
   BarChart3,
-  ChevronRight,
   Gift,
   Infinity as InfinityIcon,
   MessageCircle,
@@ -10,8 +10,10 @@ import {
 } from "lucide-react"
 
 import { CourseActions } from "@/components/landing/course-actions"
+import { ReferralBenefitDialog } from "@/components/landing/referral-benefit-dialog"
+import { ScholarshipBenefitDialog } from "@/components/landing/scholarship-benefit-dialog"
 import { Button } from "@/components/ui/button"
-import { course, pricingPlans, referral, scholarship } from "@/lib/course-data"
+import { course, pricingPlans } from "@/lib/course-data"
 
 const statIcons = [SquareLibrary, BarChart3, Smartphone]
 
@@ -101,22 +103,8 @@ export function Hero() {
         </div>
 
         <div className="mt-4 divide-y divide-border border-y border-border">
-          <div className="flex items-center justify-between py-3 text-sm">
-            <span className="text-muted-foreground">{referral.title}</span>
-            <span className="inline-flex items-center gap-1 font-semibold text-primary">
-              최대 120,000원
-              <ChevronRight className="size-4" />
-            </span>
-          </div>
-          <div className="flex items-center justify-between py-3 text-sm">
-            <span className="text-muted-foreground">
-              {scholarship.title.replace("!", "")}
-            </span>
-            <span className="inline-flex items-center gap-1 font-semibold text-primary">
-              최대 {scholarship.tiers[0].amount}
-              <ChevronRight className="size-4" />
-            </span>
-          </div>
+          <ReferralBenefitDialog />
+          <ScholarshipBenefitDialog />
         </div>
 
         <p className="mt-3 text-xs text-muted-foreground">
@@ -128,11 +116,11 @@ export function Hero() {
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <Button
             size="lg"
-            render={<a href="#pricing" />}
+            render={<Link href={`/checkout/${lowestPlan.id}`} />}
             nativeButton={false}
             className="h-12 px-6 text-base"
           >
-            지금 결제하고 시작하기
+            지금 수강 신청하기
           </Button>
           <Button
             size="lg"

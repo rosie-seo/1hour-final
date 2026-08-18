@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import { currentStep, episodes } from "@/lib/study-data"
+import { currentStep, episodes, weeks } from "@/lib/study-data"
 import { LessonSidebar } from "./lesson-sidebar"
 
 const first = episodes[0]
@@ -23,10 +23,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** EPISODE 1만 열려 있고 나머지는 잠김 */
+/** 1주차 DAY 1만 진행 중이고 나머지는 잠김 */
 export const Default: Story = {
   args: {
-    episodes,
+    episodes: weeks[0].episodes,
     activeEpisodeSlug: first.slug,
     activeStepId: currentStep(first).id,
   },

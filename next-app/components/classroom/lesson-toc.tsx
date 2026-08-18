@@ -24,6 +24,10 @@ function StepIcon({ status }: { status: StudyStep["status"] }) {
 /**
  * 에피소드 목차.
  *
+ * "다음에 뭘 하지"(목차)와 "방금 뭘 했고 몇 점이었나"(학습 기록)를 한 목록에
+ * 합친다 — 완료 단계는 점수를, 진행 중/잠긴 단계는 각각 재생 아이콘과
+ * 안내 문구를 같은 자리에서 보여준다.
+ *
  * 탭 껍데기와 분리해 둔다 — 일반 모드에서는 사이드바 탭 안에,
  * 넓은화면 모드에서는 아이콘 레일이 여는 패널 안에 같은 목차가 들어간다.
  */
@@ -78,7 +82,7 @@ export function LessonToc({
                 )}
               >
                 {unlocked ? (
-                  episode.no
+                  episode.dayInWeek
                 ) : (
                   <Lock className="size-3" aria-hidden />
                 )}
@@ -108,34 +112,66 @@ export function LessonToc({
             </button>
 
             {unlocked && open && (
-              <ul className="border-t border-border">
-                {episode.steps.map((step) => {
+              <ul className="divide-y divide-border border-t border-border">
+                {episode.steps.map((step, index) => {
                   const active = step.id === activeStepId
-                  return (
-                    <li key={step.id}>
-                      <Link
-                        href={`/mypage/classroom/${episode.slug}?step=${step.id}`}
-                        aria-current={active ? "page" : undefined}
+                  const last = index === episode.steps.length - 1
+                  const locked = step.status === "todo"
+                  const href = locked
+                    ? undefined
+                    : step.status === "current" && last
+                      ? `/mypage/classroom/${episode.slug}/complete`
+                      : `/mypage/classroom/${episode.slug}?step=${step.id}`
+
+                  const content = (
+                    <>
+                      <StepIcon status={step.status} />
+                      <span
                         className={cn(
-                          "flex items-center gap-2.5 px-3 py-2.5 transition-colors",
-                          active
-                            ? "bg-primary/10 text-primary"
-                            : "hover:bg-muted/60"
+                          "min-w-0 flex-1 truncate text-sm",
+                          active && "font-semibold",
+                          locked && "text-muted-foreground"
                         )}
                       >
-                        <StepIcon status={step.status} />
-                        <span
+                        {step.title}
+                      </span>
+                      <span
+                        className={cn(
+                          "shrink-0 text-xs tabular-nums",
+                          step.status === "current"
+                            ? "font-semibold text-primary"
+                            : "text-muted-foreground"
+                        )}
+                      >
+                        {locked
+                          ? "이전 단계 완료 필요"
+                          : step.status === "current"
+                            ? "진행하기"
+                            : step.score}
+                      </span>
+                    </>
+                  )
+
+                  return (
+                    <li key={step.id}>
+                      {href ? (
+                        <Link
+                          href={href}
+                          aria-current={active ? "page" : undefined}
                           className={cn(
-                            "min-w-0 flex-1 truncate text-sm",
-                            active && "font-semibold"
+                            "flex items-center gap-2.5 px-3 py-2.5 transition-colors",
+                            active
+                              ? "bg-primary/10 text-primary"
+                              : "hover:bg-muted/60"
                           )}
                         >
-                          {step.title}
-                        </span>
-                        <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                          {step.duration}
-                        </span>
-                      </Link>
+                          {content}
+                        </Link>
+                      ) : (
+                        <div className="flex items-center gap-2.5 px-3 py-2.5 opacity-60">
+                          {content}
+                        </div>
+                      )}
                     </li>
                   )
                 })}

@@ -13,6 +13,7 @@ import {
   findEpisode,
   nextEpisode,
 } from "@/lib/study-data"
+import { wrongCountForEpisode } from "@/lib/review-data"
 
 export const metadata: Metadata = {
   title: "에피소드 완주",
@@ -40,6 +41,7 @@ export default async function EpisodeCompletePage({
 
   const summary = episodeSummary(episode)
   const next = nextEpisode(episode)
+  const wrongCount = wrongCountForEpisode(episode.slug)
 
   const stats = [
     {
@@ -120,6 +122,26 @@ export default async function EpisodeCompletePage({
           </ul>
         </section>
 
+        {wrongCount > 0 && (
+          <section className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-5">
+            <div className="min-w-0">
+              <p className="text-sm font-bold">오답노트 {wrongCount}개</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                틀린 문제와 단어를 지금 복습하면 더 오래 기억해요.
+              </p>
+            </div>
+            <Link
+              href={`/mypage/classroom/review?episode=${episode.slug}&filter=wrong`}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "shrink-0"
+              )}
+            >
+              복습하기
+            </Link>
+          </section>
+        )}
+
         {next ? (
           <section className="mt-4 overflow-hidden rounded-2xl border border-border bg-card">
             <div className="flex items-center gap-2 bg-primary/10 px-5 py-2.5 text-xs font-semibold text-primary">
@@ -154,7 +176,7 @@ export default async function EpisodeCompletePage({
                 {next.label} 시작하기
               </Link>
               <Link
-                href="/mypage"
+                href="/mypage/classroom"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
                   "flex-1"
@@ -170,13 +192,13 @@ export default async function EpisodeCompletePage({
               공개된 에피소드를 모두 완주했어요. 다음 커리큘럼을 기다려 주세요.
             </p>
             <Link
-              href="/mypage"
+              href="/mypage/classroom"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
                 "mt-4"
               )}
             >
-              마이페이지로
+              내 강의장으로
             </Link>
           </div>
         )}

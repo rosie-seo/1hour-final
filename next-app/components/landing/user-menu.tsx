@@ -39,6 +39,14 @@ export function UserMenu() {
           구독 관리
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+        <DropdownMenuItem
+          render={
+            <a href="/storybook" target="_blank" rel="noopener noreferrer" />
+          }
+        >
+          디자이너 응원
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive">
           <LogOut className="size-4" />
           로그아웃

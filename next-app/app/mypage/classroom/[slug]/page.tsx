@@ -15,6 +15,7 @@ import {
   isUnlocked,
   nextEpisode,
   previousEpisode,
+  weekOf,
 } from "@/lib/study-data"
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default async function LessonPage({
   const episode = findEpisode(slug)
   if (!episode) notFound()
 
+  const week = weekOf(episode)
   const unlocked = isUnlocked(episode)
   const prev = previousEpisode(episode)
   const next = nextEpisode(episode)
@@ -61,7 +63,7 @@ export default async function LessonPage({
         <div className="min-w-0">
           <p className="truncate text-sm font-bold">{course.title}</p>
           <p className="truncate text-xs text-muted-foreground">
-            {episode.label} · {episode.title}
+            {week.label} · {episode.label} · {episode.title}
           </p>
         </div>
       </header>
@@ -83,7 +85,7 @@ export default async function LessonPage({
 
       {unlocked ? (
         <LessonStage
-          episodes={episodes}
+          episodes={week.episodes}
           episode={episode}
           active={active}
           prev={prev}
@@ -98,14 +100,14 @@ export default async function LessonPage({
             아직 열리지 않은 에피소드예요
           </p>
           <p className="text-sm text-muted-foreground">
-            {prev?.label}을(를) 완주하면 {episode.label}이(가) 열려요.
+            {prev?.title}을(를) 완주하면 {episode.title}이(가) 열려요.
           </p>
           {prev && (
             <Link
               href={`/mypage/classroom/${prev.slug}`}
               className={cn(buttonVariants({ size: "lg" }), "mt-2")}
             >
-              {prev.label} 이어서 학습
+              {prev.title} 이어서 학습
             </Link>
           )}
         </div>

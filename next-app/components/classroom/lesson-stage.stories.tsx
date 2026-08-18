@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
-import { currentStep, episodes } from "@/lib/study-data"
+import { currentStep, episodes, weeks } from "@/lib/study-data"
 import { LessonStage } from "./lesson-stage"
 
 const episode = episodes[0]
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   name: "기본화면",
   args: {
-    episodes,
+    episodes: weeks[0].episodes,
     episode,
     active: currentStep(episode),
     next: episodes[1],

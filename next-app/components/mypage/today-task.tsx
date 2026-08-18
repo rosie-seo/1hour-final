@@ -5,7 +5,7 @@ import { CheckCircle2, Flame, Play } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { studyStats } from "@/lib/analytics-data"
-import { doneCount, todayStep } from "@/lib/study-data"
+import { doneCount, todayStep, weekOf } from "@/lib/study-data"
 
 /**
  * 오늘의 학습 1개.
@@ -37,8 +37,7 @@ export function TodayTask() {
       className="overflow-hidden rounded-2xl border border-primary/40 bg-card"
       aria-label="오늘의 학습"
     >
-      {/* 스트릭은 경고가 아니라 기록이므로 경고색(destructive) 대신 앰버를 쓴다 */}
-      <div className="flex items-center gap-2 bg-amber-500/10 px-5 py-2.5 text-xs font-semibold text-amber-600 dark:text-amber-400">
+      <div className="flex items-center gap-2 bg-primary/10 px-5 py-2.5 text-xs font-semibold text-primary">
         <Flame className="size-3.5" aria-hidden />
         연속 {studyStats.currentStreak}일째
       </div>
@@ -50,7 +49,7 @@ export function TodayTask() {
           </p>
           <p className="mt-1.5 font-heading text-lg font-black">{step.title}</p>
           <p className="mt-1 truncate text-sm text-muted-foreground">
-            {episode.label} · {episode.title}
+            {weekOf(episode).label} · {episode.label} · {episode.title}
           </p>
 
           {finishesEpisode && (

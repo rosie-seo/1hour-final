@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { CheckCircle2, Gift, ShieldCheck, Trophy } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -70,8 +71,10 @@ export function Pricing() {
                   size="lg"
                   className="mt-6 h-12 w-full text-base font-bold"
                   variant={plan.highlight ? "default" : "outline"}
+                  render={<Link href={`/checkout/${plan.id}`} />}
+                  nativeButton={false}
                 >
-                  {plan.name}으로 시작하기
+                  {plan.name} 신청하기
                 </Button>
               </CardContent>
             </Card>
