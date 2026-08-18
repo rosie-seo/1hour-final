@@ -1,0 +1,17 @@
+@import "../app/globals.css";
+
+/*
+ * app/globals.css expects `--font-sans` to be injected by next/font (see app/layout.tsx),
+ * which only runs inside the Next.js build. Storybook renders outside that pipeline, so
+ * preview.tsx loads the same Pretendard font file directly via an asset import (a raw CSS
+ * @import of the pretendard package's stylesheet doesn't get its url() rebased by the
+ * bundler) and points --font-sans at it.
+ */
+:root {
+  --font-sans: "Pretendard Variable", sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
